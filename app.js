@@ -1,7 +1,10 @@
-var app = angular.module('movieApp', []);
+angular.module('movieApp', [])
+  .controller('MovieController', MovieController);
 
-app.controller('MovieCtrl', ['$scope', function ($scope) {
-  $scope.moviesToWatch = [
+MovieController.$inject = [];  // empty for now maybe later add $http
+function MovieController() {
+  var vm = this;
+  vm.moviesToWatch = [
     {
       title: 'Inside Out',
       image: 'http://blogs-images.forbes.com/markhughes/files/2015/06/INSIDE-OUT-18.jpg'
@@ -28,40 +31,40 @@ app.controller('MovieCtrl', ['$scope', function ($scope) {
     }
   ];
 
-  $scope.movie = {};
-  $scope.addMovie = function() {
-    var newMovie = $scope.movie;
-    $scope.movie = {};
-    $scope.moviesToWatch.push(newMovie);
+  vm.movie = {};
+  vm.addMovie = function() {
+    var newMovie = vm.movie;
+    vm.movie = {};
+    vm.moviesToWatch.push(newMovie);
   };
 
-  $scope.deleteMovie = function (movie) {
-    var movieIndex = $scope.moviesToWatch.indexOf(movie);
-    $scope.moviesToWatch.splice(movieIndex, 1);
+  vm.deleteMovie = function (movie) {
+    var movieIndex = vm.moviesToWatch.indexOf(movie);
+    vm.moviesToWatch.splice(movieIndex, 1);
   };
 
-  $scope.markWatched = function (movie) {
+  vm.markWatched = function (movie) {
     movie.watched = (movie.watched ? false : true);
   };
 
-  $scope.movieLimit = 5;
-  $scope.toggleMovieLimit = function() {
-    if ($scope.movieLimit) {
-      $scope.movieLimit = false;
+  vm.movieLimit = 5;
+  vm.toggleMovieLimit = function() {
+    if (vm.movieLimit) {
+      vm.movieLimit = false;
     } else {
-      $scope.movieLimit = 5;
+      vm.movieLimit = 5;
     }
   };
 
-  $scope.changeBackground = function() {
-    randomIndex = Math.floor(Math.random() * $scope.moviesToWatch.length);
+  vm.changeBackground = function() {
+    randomIndex = Math.floor(Math.random() * vm.moviesToWatch.length);
     console.log(randomIndex);
-    randomImage = $scope.moviesToWatch[randomIndex].image;
-    $scope.style = {'background-image': 'url(' + randomImage + ')'};
+    randomImage = vm.moviesToWatch[randomIndex].image;
+    vm.style = {'background-image': 'url(' + randomImage + ')'};
   };
 
-  $scope.clearBackground = function() {
-    $scope.style = {'background-image': 'none'};
+  vm.clearBackground = function() {
+    vm.style = {'background-image': 'none'};
   };
 
-}]);
+}
