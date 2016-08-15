@@ -13,57 +13,57 @@
 	<!-- angular -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
 
-	<!-- custom script -->	
+	<!-- custom script -->
 	<script type="text/javascript" src="app.js"></script>
 
 	<title>Intro Angular</title>
 </head>
-<body ng-controller="MovieCtrl" ng-style="style">
+<body ng-controller="MovieController as movieCtrl" ng-style="movieCtrl.style">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
 				<!-- form to add new movie -->
 				<br>
-		    <form ng-submit="addMovie()">
+		    <form ng-submit="movieCtrl.addMovie()">
 		      <div class="form-group">
 		        <label for="movie-title">Movie Title</label>
-		        <input type="text" ng-model="movie.title" class="form-control" placeholder="What do you want to watch?" autofocus>
+		        <input type="text" ng-model="movieCtrl.movie.title" class="form-control" placeholder="What do you want to watch?" autofocus>
 		      </div>
 		      <input type="submit" value="Add Movie" class="btn btn-default">
 		    </form>
-				
+
 				<!-- show all moviesToWatch -->
-			  <div ng-if="moviesToWatch.length > 0">
+			  <div ng-if="movieCtrl.moviesToWatch.length > 0">
 			  	<hr>
 			    <div class="panel panel-default">
 			      <div class="panel-heading">
 			        <h3 class="panel-title">
-			        	{{moviesToWatch.length}} <span ng-pluralize count="moviesToWatch.length" when="{'1': 'Movie', 'other': 'Movies'}"></span> to Watch
+			        	{{movieCtrl.moviesToWatch.length}} <span ng-pluralize count="movieCtrl.moviesToWatch.length" when="{'1': 'Movie', 'other': 'Movies'}"></span> to Watch
 			        </h3>
 			      </div>
 			      <ul class="list-group">
-			      	
+
 			      	<!-- code for one movie -->
-			        <li ng-repeat="movie in moviesToWatch | orderBy:'title' | limitTo: movieLimit" class="list-group-item">
+			        <li ng-repeat="movie in movieCtrl.moviesToWatch | orderBy:'title' | limitTo: movieCtrl.movieLimit" class="list-group-item">
 			        	<p class="list-group-item-text">
 
 			        		<!-- movie title with conditional class -->
 			        		<span ng-class="{watched: movie.watched}">{{movie.title}}</span>
-			        		
+
 			        		<!-- icons to mark as watched and delete -->
 			        		<span class="pull-right">
-			        		  <a href="#" ng-click="markWatched(movie)"><i class="glyphicon" ng-class="{'glyphicon-check': movie.watched, 'glyphicon-unchecked': !movie.watched}"></i></a>
-			        		  <a href="#" ng-click="deleteMovie(movie)"><i class="glyphicon glyphicon-remove-circle"></i></a>
+			        		  <a href="#" ng-click="movieCtrl.markWatched(movie)"><i class="glyphicon" ng-class="{'glyphicon-check': movie.watched, 'glyphicon-unchecked': !movie.watched}"></i></a>
+			        		  <a href="#" ng-click="movieCtrl.deleteMovie(movie)"><i class="glyphicon glyphicon-remove-circle"></i></a>
 			        		</span>
 			        	</p>
 			        </li>
 			        <!-- code for one movie ends here -->
-			        
+
 			        <li class="list-group-item">
 		        		<p class="list-group-item-text">
-		        			<a href="#" ng-click="toggleMovieLimit()">
-		        				Show {{movieLimit ? "More" : "Less"}}
+		        			<a href="#" ng-click="movieCtrl.toggleMovieLimit()">
+		        				Show {{movieCtrl.movieLimit ? "More" : "Less"}}
 		        			</a>
 		        		</p>
 			        </li>
@@ -72,8 +72,8 @@
 			  </div>
 
 			  <hr>
-			  <button class="btn btn-primary" ng-click="changeBackground()">Change Background</button>
-			  <button class="btn btn-default" ng-click="clearBackground()">Clear Background</button>
+			  <button class="btn btn-primary" ng-click="movieCtrl.changeBackground()">Change Background</button>
+			  <button class="btn btn-default" ng-click="movieCtrl.clearBackground()">Clear Background</button>
 
 			</div>
 		</div>
